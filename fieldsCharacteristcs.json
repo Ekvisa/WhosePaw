@@ -1,0 +1,51 @@
+[
+  { "attrName": "name", "translation": "Имя", "enterType": "input" },
+  {
+    "attrName": "status",
+    "translation": "статус",
+    "enterType": "radio",
+    "options": ["нашёлся", "потерялся"]
+  },
+  {
+    "attrName": "furcolor",
+    "translation": "цвет шерсти",
+    "enterType": "select",
+    "options": ["белый", "серый", "чёрный", "рыжий", "коричневый"]
+  },
+  {
+    "attrName": "eyeColor",
+    "translation": "цвет глаз",
+    "enterType": "select",
+    "options": ["голубой", "зелёный", "жёлтый", "медный"]
+  },
+  { "attrName": "breed", "translation": "порода", "enterType": "input" },
+  {
+    "attrName": "sex",
+    "translation": "пол",
+    "enterType": "select",
+    "options": ["кот", "кошка"]
+  },
+  {
+    "attrName": "age",
+    "translation": "возраст",
+    "enterType": "select",
+    "options": ["взрослый", "котёнок"]
+  },
+  {
+    "attrName": "district",
+    "translation": "район",
+    "enterType": "select",
+    "options": ["Железнодорожный", "Промышленный", "Ленинский", "Советский"]
+  },
+  {
+    "attrName": "description",
+    "translation": "описание",
+    "enterType": "textarea"
+  },
+  { "attrName": "photoUrl", "translation": "фото", "enterType": "file" },
+  {
+    "attrName": "contact",
+    "translation": "как связаться",
+    "enterType": "input"
+  }
+]

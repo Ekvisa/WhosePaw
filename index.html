@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="./images/paw.svg" type="image/x-icon" />
+  </head>
+  <body>
+    <header>
+      <h1>🐾 Чьи лапки? 🐾</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Недавно пропавшие котики</h2>
+        <ul id="lost">
+          <li>
+            <p><b>Возраст:</b> взрослый</p>
+            <p><b>Район:</b> Ленинский</p>
+            <div class="avatar">
+              =^<span class="eye">•</span>ᆺ<span class="eye">•</span>^=
+            </div>
+            <p><b>Контакт:</b> +79173337788, Лиза</p>
+          </li>
+          <li>
+            <p><b>Возраст:</b> взрослый</p>
+            <p><b>Район:</b> Ленинский</p>
+            <div class="avatar">
+              =^<span class="eye">•</span>ᆺ<span class="eye">•</span>^=
+            </div>
+            <p><b>Контакт:</b> +79173337788, Лиза</p>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Недавно найденные котики</h2>
+        <ul id="found">
+          <li>
+            <p><b>Возраст:</b> взрослый</p>
+            <p><b>Район:</b> Ленинский</p>
+            <div class="avatar">=^•ᆺ•^=</div>
+            <p><b>Контакт:</b> +79173337788, Лиза</p>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h3>Добавить котика:</h3>
+        <form id="add"></form>
+      </section>
+      <section class="details hidden">
+        <div class="details_content">
+          <!-- <img id="details-photo" alt="Фото котика" /> -->
+          <!-- <h2 id="details-name"></h2> -->
+          <!-- <p><strong>Цвет:</strong> <span id="details-color"></span></p>
+          <p><strong>Возраст:</strong> <span id="details-age"></span></p>
+          <p><strong>Район:</strong> <span id="details-district"></span></p>
+          <p>
+            <strong>Описание:</strong> <span id="details-description"></span>
+          </p>
+          <p><strong>Контакт:</strong> <span id="details-contact"></span></p> -->
+          <div class="details_text"></div>
+          <div class="buttons">
+            <button class="favorite"></button>
+            <button class="edit"></button>
+            <button class="delete"></button>
+          </div>
+          <img src="./images/circle-xmark.svg" alt="close" class="close" />
+        </div>
+
+        <!-- <h3><a href="#"></a>Добавить котика:</h3> -->
+
+        <!-- <form>
+          <p>
+            <input type="radio" id="found" name="status" value="found" />
+            <label for="found">Нашёлся</label><br />
+            <input type="radio" id="lost" name="status" value="lost" />
+            <label for="lost">Потерялся</label>
+          </p>
+          <p>
+            <label for="name">Имя:</label>
+            <input type="text" name="name" id="name" required />
+          </p>
+          <p>
+            <select name=" " id="furcolor" required>
+              <option value="">-- цвет шерсти --</option>
+              <option value="white">белый</option>
+              <option value="gray">серый</option>
+              <option value="black">чёрный</option>
+              <option value="orange">рыжий</option>
+              <option value="brown">коричневый</option></select
+            ><span id="colorPreview" class="colorsquare">=^•ᆺ•^=</span>
+          </p>
+          <p>
+            <select name=" " id="eyecolor" required>
+              <option value="">-- цвет глаз --</option>
+              <option value="white">голубой</option>
+              <option value="gray">зелёный</option>
+              <option value="black">жёлтый</option>
+              <option value="orange">медный</option>
+            </select>
+          </p>
+
+          <p>
+            <select name="age" id="age" required>
+              <option value="">-- возраст --</option>
+              <option value="adult">взрослый</option>
+              <option value="cub">котёнок</option>
+            </select>
+          </p>
+          <p>
+            <select name="district" id="district" required>
+              <option value="">-- район --</option>
+              <option value="kuibyshevsky">Куйбышевский</option>
+              <option value="samarsky">Самарский</option>
+              <option value="leninsky">Ленинский</option>
+              <option value="zheleznodorozhny">Железнодорожный</option>
+              <option value="oktyabrsky">Октябрьский</option>
+              <option value="sovetsky">Советский</option>
+              <option value="promyshlenny">Промышленный</option>
+              <option value="kirovsky">Кировский</option>
+              <option value="krasnoglinsky">Красноглинский</option>
+            </select>
+          </p>
+          <p>
+            <label for="contact">Контакт:</label>
+            <input type="text" name="contact" id="contact" required />
+          </p>
+          <button type="submit">Отправить</button>
+        </form> -->
+      </section>
+    </main>
+    <footer></footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

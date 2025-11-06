@@ -1,0 +1,132 @@
+body {
+  background: #e8cba9;
+  margin: 0;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: center;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  flex-direction: column;
+  width: 20em;
+  margin: 2em;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 1em;
+  padding: 2em;
+  cursor: pointer;
+  position: relative;
+}
+li p {
+  display: flex;
+  gap: 1em;
+}
+li p label {
+  color: gray;
+}
+li p span {
+  font-weight: bold;
+}
+
+.avatar {
+  font-size: 2em;
+  color: black;
+  background: gray;
+  border-radius: 50px;
+  padding: 0.5em 0;
+}
+.avatar .eye {
+  color: green;
+}
+
+.details {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.details_content {
+  background: white;
+  padding: 2em;
+  border-radius: 2em;
+  text-align: center;
+  position: relative;
+  max-height: 90%;
+  overflow: scroll;
+}
+.details_content p {
+  display: flex;
+  flex-direction: column;
+}
+.details_content p label {
+  color: gray;
+}
+.details_content p span {
+  font-weight: bold;
+}
+.details_content .close {
+  position: absolute;
+  cursor: pointer;
+  top: 1em;
+  right: 1em;
+  width: 2em;
+  height: 2em;
+}
+.details_content .close:hover {
+  filter: contrast(0.5);
+}
+.details_content .buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+.details_content .buttons button {
+  width: 2em;
+  height: 2em;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin: 0.5em;
+}
+.details_content .buttons button.favorite {
+  background-image: url("./images/heart.svg");
+}
+.details_content .buttons button.edit {
+  background-image: url("./images/edit.svg");
+}
+.details_content .buttons button.delete {
+  background-image: url("./images/erase.svg");
+}
+.details_content .buttons button:hover {
+  filter: brightness(0.5);
+}
+
+.colorsquare {
+  padding: 0.5em 0;
+  border-radius: 50%;
+  margin-left: 0.5em;
+}
+
+.hidden {
+  display: none;
+}
+
+/*# sourceMappingURL=style.css.map */

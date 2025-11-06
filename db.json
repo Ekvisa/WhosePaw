@@ -1,0 +1,589 @@
+{
+  "cats": [
+    {
+      "id": "0",
+      "name": "Барсик",
+      "status": "lost",
+      "furcolor": "серый",
+      "eyeColor": "зеленый",
+      "breed": "беспородный",
+      "sex": "male",
+      "age": "взрослый",
+      "date": "2025-10-20T08:43:43.078Z",
+      "district": "Ленинский",
+      "description": "Рыжий кот с белыми лапками, ошейник с именем, хромает",
+      "photoUrl": "https://example.com/barsik.jpg",
+      "contact": {
+        "name": "Екатерина",
+        "phone": "+7-900-000-42-00"
+      }
+    },
+    {
+      "id": "1",
+      "name": "",
+      "status": "found",
+      "furcolor": "рыжий",
+      "eyeColor": "желтый",
+      "sex": "male",
+      "age": "взрослый",
+      "district": "Парк Победы",
+      "description": "Нашёлся рыжий кот, ласковый, без ошейника",
+      "date": "2025-10-23T08:43:43.078Z",
+      "contact": {
+        "name": "Софья Залмановна",
+        "phone": "+7-900-000-00-33"
+      }
+    },
+    {
+      "id": "10",
+      "name": "Граф",
+      "status": "found",
+      "furcolor": "чёрный с белыми усами",
+      "eyeColor": "жёлтый",
+      "sex": "male",
+      "age": "взрослый",
+      "district": "Промышленный",
+      "description": "нашёлся в гараже, не боится людей, явно домашний",
+      "date": "2025-10-25T08:43:43.078Z",
+      "contact": {
+        "name": "Алексей",
+        "phone": "+7-900-890-19-90"
+      }
+    },
+    {
+      "id": "11",
+      "name": "Сима",
+      "status": "lost",
+      "furcolor": "рыжая с белой грудкой",
+      "eyeColor": "зелёный",
+      "sex": "female",
+      "age": "взрослый",
+      "district": "Железнодорожный",
+      "description": "молодая, на ушке бирка, может испугаться громких звуков",
+      "date": "2025-10-21T08:43:43.078Z",
+      "contact": {
+        "name": "Лиза",
+        "phone": "+7-900-333-66-02"
+      }
+    },
+    {
+      "id": "12",
+      "name": "Мур",
+      "status": "found",
+      "furcolor": "серо-полосатый",
+      "eyeColor": "янтарный",
+      "sex": "male",
+      "age": "взрослый",
+      "district": "Советский",
+      "description": "у него ошейник с потертым номером, откликается на «Мурка»",
+      "date": "2025-10-24T08:43:43.078Z",
+      "contact": {
+        "name": "Кирилл",
+        "phone": "+7-900-413-01-03"
+      }
+    },
+    {
+      "id": "14",
+      "name": "",
+      "status": "found",
+      "furcolor": "пепельно-серый",
+      "eyeColor": "зелёный",
+      "sex": "female",
+      "age": "взрослый",
+      "district": "Ленинский",
+      "description": "сидела под лавкой, худая, голос тонкий",
+      "date": "2025-10-22T08:47:43.078Z",
+      "contact": {
+        "name": "Артём",
+        "phone": "+7-900-555-98-77"
+      }
+    },
+    {
+      "id": "15",
+      "name": "Бублик",
+      "status": "lost",
+      "furcolor": "белый с рыжими пятнами",
+      "eyeColor": "карий",
+      "sex": "male",
+      "age": "взрослый",
+      "district": "Центральный",
+      "description": "весёлый, бегает за мячиками, на правом глазу шрам",
+      "date": "2025-10-20T08:47:43.078Z",
+      "contact": {
+        "name": "Даша",
+        "phone": "+7-900-404-99-13"
+      }
+    },
+    {
+      "id": "16",
+      "name": "",
+      "status": "found",
+      "furcolor": "рыже-белый",
+      "eyeColor": "жёлтый",
+      "sex": "male",
+      "age": "взрослый",
+      "district": "Промышленный",
+      "description": "нашли на стройке, мурчит громко, когти острижены",
+      "date": "2025-10-24T08:47:43.078Z",
+      "contact": {
+        "name": "Иван",
+        "phone": "+7-900-919-12-12"
+      }
+    },
+    {
+      "id": "22",
+      "name": "Куся",
+      "status": "lost",
+      "furcolor": "серо-бурый",
+      "eyeColor": "зелёный",
+      "sex": "female",
+      "age": "взрослый",
+      "district": "Железнодорожный",
+      "description": "пугливая, отзывается на тихий свист, любит прятаться под машинами",
+      "date": "2025-10-24T08:47:43.078Z",
+      "contact": {
+        "name": "Илья",
+        "phone": "+7-900-321-45-67"
+      }
+    },
+    {
+      "id": "23",
+      "name": "",
+      "status": "found",
+      "furcolor": "белый с серыми ушами",
+      "eyeColor": "голубой",
+      "sex": "male",
+      "age": "взрослый",
+      "district": "Южный",
+      "description": "сидит у супермаркета, пушистый, очень чистый",
+      "date": "2025-10-25T08:47:43.078Z",
+      "contact": {
+        "name": "Таня",
+        "phone": "+7-900-191-19-19"
+      }
+    },
+    {
+      "id": "b1cb",
+      "status": "lost",
+      "name": "Семён",
+      "furcolor": "white",
+      "age": "adult",
+      "district": "leninsky",
+      "contact": "232323 Петя",
+      "date": "2025-10-30T08:47:43.078Z"
+    },
+    {
+      "id": "97ef",
+      "status": "found",
+      "name": "Вася",
+      "furcolor": "gray",
+      "age": "adult",
+      "district": "samarsky",
+      "contact": "54554 Таня",
+      "date": "2025-10-30T08:53:50.839Z"
+    },
+    {
+      "id": "5698",
+      "status": "found",
+      "name": "Барсик",
+      "furcolor": "black",
+      "age": "adult",
+      "district": "oktyabrsky",
+      "contact": "786756 Катя",
+      "date": "2025-10-30T08:54:41.643Z"
+    },
+    {
+      "id": "586c",
+      "status": "lost",
+      "name": "Филя",
+      "furcolor": "black",
+      "age": "adult",
+      "district": "kirovsky",
+      "contact": "444333 Наталья",
+      "date": "2025-10-30T09:00:01.911Z"
+    },
+    {
+      "id": "8f64",
+      "status": "found",
+      "name": "Стивчик",
+      "furcolor": "gray",
+      "age": "adult",
+      "district": "kuibyshevsky",
+      "contact": "3456 Иришка",
+      "date": "2025-10-30T09:02:01.725Z"
+    },
+    {
+      "id": "843c",
+      "status": "found",
+      "name": "Пушок",
+      "furcolor": "white",
+      "age": "adult",
+      "district": "kuibyshevsky",
+      "contact": "78787 Лиза",
+      "date": "2025-10-30T09:16:14.447Z"
+    },
+    {
+      "id": "a5a5",
+      "status": "found",
+      "name": "Мурзик",
+      "furcolor": "black",
+      "age": "adult",
+      "district": "zheleznodorozhny",
+      "contact": "334444 Ваня",
+      "date": "2025-10-30T09:25:52.537Z"
+    },
+    {
+      "id": "2bdd",
+      "status": "lost",
+      "date": "2025-10-30T11:52:20.602Z"
+    },
+    {
+      "id": "d6eb",
+      "name": "Cleopatra",
+      "status": "found",
+      "breed": "",
+      "contact": "",
+      "date": "2025-10-30T11:59:01.723Z"
+    },
+    {
+      "id": "f484",
+      "name": "Серёжа",
+      "status": "lost",
+      "breed": "британский",
+      "contact": "8899900 Даша",
+      "date": "2025-10-30T12:08:13.559Z"
+    },
+    {
+      "id": "5706",
+      "name": "Маркизик",
+      "status": "found",
+      "breed": "ориентальный",
+      "contact": "889977 Наталья Ивановна",
+      "date": "2025-10-30T12:22:22.924Z"
+    },
+    {
+      "id": "8457",
+      "name": "Сахарок",
+      "status": "lost",
+      "breed": "вислоухий",
+      "contact": "887766 Надя",
+      "date": "2025-10-30T12:28:14.217Z"
+    },
+    {
+      "id": "fbf4",
+      "name": "Тиша",
+      "status": "found",
+      "breed": "домашний",
+      "contact": "8899555 Олег",
+      "date": "2025-10-30T12:46:07.923Z"
+    },
+    {
+      "id": "7e3b",
+      "name": "Чубайс",
+      "status": "lost",
+      "breed": "пушистый",
+      "contact": "99000777 Роза Пантелеевна",
+      "date": "2025-10-30T13:36:25.045Z"
+    },
+    {
+      "id": "838e",
+      "name": "Катя",
+      "status": "lost",
+      "furcolor": "white",
+      "eyeColor": "yellow",
+      "breed": "домашняя",
+      "sex": "female",
+      "age": "adult",
+      "district": "zheleznodorozhny",
+      "description": "любит помидоры, боится тапочек",
+      "photoUrl": {},
+      "contact": "889911 Лена",
+      "date": "2025-10-30T14:23:48.878Z"
+    },
+    {
+      "id": "21de",
+      "name": "Цезарь",
+      "status": "found",
+      "furcolor": "gray",
+      "eyeColor": "blue",
+      "breed": "сиамский",
+      "sex": "male",
+      "age": "adult",
+      "district": "oktyabrsky",
+      "description": "любит играть с цепочкой",
+      "photoUrl": {},
+      "contact": "33442233 Умрика Рагимовна",
+      "date": "2025-10-30T14:38:35.230Z"
+    },
+    {
+      "id": "424b",
+      "name": "Носишка",
+      "status": "lost",
+      "furcolor": "black",
+      "eyeColor": "yellow",
+      "breed": "черепаховая",
+      "sex": "female",
+      "age": "cub",
+      "district": "sovetsky",
+      "description": "носик розовый",
+      "photoUrl": {},
+      "contact": "887744 Мипси",
+      "date": "2025-10-30T14:40:14.267Z"
+    },
+    {
+      "id": "9745",
+      "name": "Филипок",
+      "status": "lost",
+      "furcolor": "gray",
+      "eyeColor": "blue",
+      "breed": "русский голубой",
+      "sex": "male",
+      "age": "cub",
+      "district": "samarsky",
+      "description": "полосатый",
+      "photoUrl": {},
+      "contact": "1234321 Аглая",
+      "date": "2025-10-31T06:12:19.380Z"
+    },
+    {
+      "id": "b003",
+      "name": "Рыжуля",
+      "status": "lost",
+      "furcolor": "orange",
+      "eyeColor": "green",
+      "breed": "лесная",
+      "sex": "female",
+      "age": "adult",
+      "district": "krasnoglinsky",
+      "description": "Белый животик",
+      "photoUrl": {},
+      "contact": "331122 Вася",
+      "date": "2025-11-05T11:00:01.568Z"
+    },
+    {
+      "id": "5bf6",
+      "name": "Hello Kitty",
+      "status": "lost",
+      "furcolor": "white",
+      "eyeColor": "blue",
+      "breed": "turkish",
+      "sex": "female",
+      "age": "adult",
+      "district": "oktyabrsky",
+      "date": "2025-11-06T15:06:45.415Z",
+      "description": "pink bow",
+      "photoUrl": {},
+      "contact": "555"
+    }
+  ],
+  "fieldsCharacteristcs": [
+    {
+      "attrName": "name",
+      "showInPrevew": "true",
+      "translation": "имя",
+      "enterType": "input",
+      "id": "85a4"
+    },
+    {
+      "attrName": "status",
+      "showInPrevew": "false",
+      "translation": "статус",
+      "enterType": "radio",
+      "options": [
+        {
+          "value": "found",
+          "text": "нашёлся"
+        },
+        {
+          "value": "lost",
+          "text": "потерялся"
+        }
+      ],
+      "id": "d709"
+    },
+    {
+      "attrName": "furcolor",
+      "showInPrevew": "true",
+      "translation": "цвет шерсти",
+      "enterType": "select",
+      "options": [
+        {
+          "value": "",
+          "text": "?"
+        },
+        {
+          "value": "white",
+          "text": "белый"
+        },
+        {
+          "value": "gray",
+          "text": "серый"
+        },
+        {
+          "value": "black",
+          "text": "чёрный"
+        },
+        {
+          "value": "orange",
+          "text": "рыжий"
+        },
+        {
+          "value": "brown",
+          "text": "коричневый"
+        }
+      ],
+      "id": "cb23"
+    },
+    {
+      "attrName": "eyeColor",
+      "showInPrevew": "false",
+      "translation": "цвет глаз",
+      "enterType": "select",
+      "options": [
+        {
+          "value": "",
+          "text": "?"
+        },
+        {
+          "value": "blue",
+          "text": "голубой"
+        },
+        {
+          "value": "green",
+          "text": "зелёный"
+        },
+        {
+          "value": "yellow",
+          "text": "жёлтый"
+        },
+        {
+          "value": "copper",
+          "text": "медный"
+        }
+      ],
+      "id": "6d14"
+    },
+    {
+      "attrName": "breed",
+      "showInPrevew": "false",
+      "translation": "порода",
+      "enterType": "input",
+      "id": "c4f7"
+    },
+    {
+      "attrName": "sex",
+      "showInPrevew": "false",
+      "translation": "пол",
+      "enterType": "select",
+      "options": [
+        {
+          "value": "",
+          "text": "?"
+        },
+        {
+          "value": "male",
+          "text": "кот"
+        },
+        {
+          "value": "female",
+          "text": "кошка"
+        }
+      ],
+      "id": "18d2"
+    },
+    {
+      "attrName": "age",
+      "showInPrevew": "true",
+      "translation": "возраст",
+      "enterType": "select",
+      "options": [
+        {
+          "value": "adult",
+          "text": "взрослый"
+        },
+        {
+          "value": "cub",
+          "text": "котёнок"
+        }
+      ],
+      "id": "bfc2"
+    },
+    {
+      "attrName": "district",
+      "showInPrevew": "true",
+      "translation": "район",
+      "enterType": "select",
+      "options": [
+        {
+          "value": "",
+          "text": "?"
+        },
+        {
+          "value": "zheleznodorozhny",
+          "text": "Железнодорожный"
+        },
+        {
+          "value": "promyshlenny",
+          "text": "Промышленный"
+        },
+        {
+          "value": "leninsky",
+          "text": "Ленинский"
+        },
+        {
+          "value": "sovetsky",
+          "text": "Советский"
+        },
+        {
+          "value": "kuibyshevsky",
+          "text": "Куйбышевский"
+        },
+        {
+          "value": "samarsky",
+          "text": "Самарский"
+        },
+        {
+          "value": "oktyabrsky",
+          "text": "Октябрьский"
+        },
+        {
+          "value": "kirovsky",
+          "text": "Кировский"
+        },
+        {
+          "value": "krasnoglinsky",
+          "text": "Красноглинский"
+        }
+      ],
+      "id": "76d4"
+    },
+    {
+      "attrName": "date",
+      "showInPrevew": "true",
+      "translation": "дата",
+      "enterType": "textarea",
+      "id": "db5f"
+    },
+    {
+      "attrName": "description",
+      "showInPrevew": "false",
+      "translation": "описание",
+      "enterType": "textarea",
+      "id": "db5e"
+    },
+    {
+      "attrName": "photoUrl",
+      "showInPrevew": "true",
+      "translation": "фото",
+      "enterType": "file",
+      "id": "c871"
+    },
+    {
+      "attrName": "contact",
+      "showInPrevew": "false",
+      "translation": "как связаться",
+      "enterType": "input",
+      "id": "a7f2"
+    }
+  ]
+}
