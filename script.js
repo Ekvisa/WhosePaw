@@ -1,86 +1,130 @@
 const PATH = "http://localhost:3000";
 const RECENT_COUNT = 5;
 
-// Универсальное получение данных
-async function fetchData(endpoint, params = {}) {
-  const url = new URL(`${PATH}/${endpoint}`);
+let activeCardId = "";
+
+const details = document.querySelector(".details");
+// Кнопка закрытия и другие
+details.querySelector(".close").onclick = () => {
+  details.classList.add("hidden");
+};
+details.querySelector(".delete").addEventListener("click", () => {
+  deleteCat();
+});
+details.querySelector(".edit").addEventListener("click", () => editCat());
+details
+  .querySelector(".favorite")
+  .addEventListener("click", () => favoriteCat(activeCardId));
+const detailsText = details.querySelector(".details_text");
+
+// Получение полей объекта котика
+async function loadCatFields(filters = {}) {
+  const url = new URL(`${PATH}/fieldsCharacteristcs`);
+  Object.entries(filters).forEach(([key, value]) =>
+    url.searchParams.append(key, value)
+  );
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("Ошибка при загрузке полей");
+  return await response.json();
+}
+
+// --- Базовые функции для котов ---
+
+async function getCats(params = {}) {
+  const url = new URL(`${PATH}/cats`);
   Object.entries(params).forEach(([key, value]) =>
     url.searchParams.append(key, value)
   );
   const response = await fetch(url);
-  if (!response.ok) throw new Error(`Ошибка при загрузке ${endpoint}`);
+  if (!response.ok) throw new Error("Ошибка при загрузке списка котиков");
   return await response.json();
 }
 
-// Не объединяю loadCatFields() и getCats() из-за разной логики данных и для читаемости. А надо?
-// Получение полей объекта котика
-async function loadCatFields(filters = {}) {
-  return fetchData("fieldsCharacteristcs", { ...filters });
+// CREATE
+async function createCat(catData) {
+  console.log(`createCat ${catData}`);
+  const response = await fetch(`${PATH}/cats`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(catData),
+  });
+  alert(
+    response.ok
+      ? `Котик ${catData.name} добавлен! 🐾`
+      : "Ошибка при добавлении котика"
+  );
+  return await response.json();
 }
-// Получение объектов котиков
-async function getCats(filters = {}) {
-  return fetchData("cats", { _sort: "-date", ...filters });
+
+// READ
+async function getCatById(id) {
+  const response = await fetch(`${PATH}/cats/${id}`);
+  if (!response.ok) throw new Error("Ошибка при загрузке котика");
+  return await response.json();
 }
 
-// // Импорт джейсона с данными о полях объекта-котика:
-// async function loadCatFields() {
-//   const response = await fetch(`${PATH}/fieldsCharacteristcs`);
-//   const catFields = await response.json();
-//   console.log(catFields);
-//   return catFields;
-// }
+// UPDATE
+async function updateCat(catData) {
+  // console.log(`updateCat ${catData.id}`);
+  console.log("Тип catData:", typeof catData);
+  console.log("Ключи catData:", Object.keys(catData));
+  const response = await fetch(`${PATH}/cats/${catData.id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(catData),
+  });
 
-// const allFields = loadCatFields();
+  alert(
+    response.ok
+      ? `Данные котика ${catData.name} обновлены! 🐾`
+      : "Ошибка при обновлении котика"
+  );
+  return await response.json();
+}
 
-function generateAddingForm(form, fields, cat, isEditable) {
-  fields.forEach((f) => {
-    const fieldEl = createField(f, cat, isEditable);
-    form.appendChild(fieldEl);
+// DELETE
+async function deleteCatById() {
+  const response = await fetch(`${PATH}/cats/${activeCardId}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    alert("Данные удалены");
+  } else {
+    throw new Error("Ошибка при удалении котика");
+  }
+  return true;
+}
+
+function generateAddingForm(formEl, fieldsData, catData, isEditable) {
+  formEl.innerHTML = "";
+  fieldsData.forEach((f) => {
+    const fieldEl = createField(f, catData, isEditable);
+    formEl.appendChild(fieldEl);
   });
   if (isEditable) {
     const submitBtn = document.createElement("button");
-    if (cat != {}) {
-      submitBtn.textContent = "Добавить";
-    } else {
-      submitBtn.textContent = "Сохранить";
-    }
     submitBtn.setAttribute("type", "submit");
-    form.appendChild(submitBtn);
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault(); // не перезагружаем страницу
-      addCat(form);
+    if (catData) {
+      submitBtn.textContent = "Сохранить";
+    } else {
+      submitBtn.textContent = "Добавить";
+    }
+    formEl.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(formEl);
+      const newCatData = Object.fromEntries(formData.entries());
+      const allCatData = { ...catData, ...newCatData };
+      if (catData) {
+        details.classList.add("hidden");
+        await updateCat(allCatData);
+      } else {
+        await createCat(allCatData);
+        formEl.reset();
+      }
+      getRecent(allCatData.status);
     });
+    formEl.appendChild(submitBtn);
   }
-}
-
-async function addCat(form) {
-  const formData = new FormData(form);
-  const cat = Object.fromEntries(formData.entries());
-  cat.date = new Date().toISOString();
-  console.log(JSON.stringify(cat));
-
-  // Постим данные
-  try {
-    const response = await fetch(`${PATH}/cats`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cat),
-    });
-
-    if (!response.ok)
-      throw new Error("Не удалось добавить котика (ошибка сервера)");
-
-    const data = await response.json();
-
-    alert(`Котик ${data.name} добавлен! 🐾`);
-    form.reset(); // очищаем форму
-  } catch (err) {
-    console.error(err);
-    alert("Не удалось добавить котика (ошибка сети)");
-  }
-
-  const updatedList = document.getElementById(cat.status);
-  showRecent(updatedList);
 }
 
 function createFieldLabel(field) {
@@ -89,12 +133,12 @@ function createFieldLabel(field) {
   label.setAttribute("for", field.attrName);
   return label;
 }
-function createFieldElement(field, cat, isEditable) {
+function createFieldElement(field, catData, isEditable) {
   let element;
   if (isEditable === false) {
     // Просмотр (детали) — просто текст
     element = document.createElement("span");
-    element.textContent = cat[field.attrName] || "—";
+    element.textContent = catData[field.attrName] || "—";
   } else {
     // Режим редактирования / добавления
     switch (field.enterType) {
@@ -103,14 +147,14 @@ function createFieldElement(field, cat, isEditable) {
         element.type = "text";
         element.id = field.attrName;
         element.name = field.attrName;
-        element.value = cat[field.attrName] || "—";
+        element.value = catData[field.attrName] || "—";
         break;
 
       case "textarea":
         element = document.createElement("textarea");
         element.id = field.attrName;
         element.name = field.attrName;
-        element.value = cat[field.attrName] || "—";
+        element.value = catData[field.attrName] || "—";
         break;
 
       case "select":
@@ -122,7 +166,8 @@ function createFieldElement(field, cat, isEditable) {
             const option = document.createElement("option");
             option.value = opt.value;
             option.textContent = opt.text;
-            if (opt === opt.value) option.selected = true;
+            // if (opt === opt.value) option.selected = true;
+            if (opt.value === catData[field.attrName]) option.selected = true;
             element.appendChild(option);
           });
         }
@@ -161,42 +206,33 @@ function createFieldElement(field, cat, isEditable) {
   return element;
 }
 
-function createField(field, cat, isEditable) {
+function createField(field, catData, isEditable) {
   const wrapper = document.createElement("p");
   const label = createFieldLabel(field);
   wrapper.appendChild(label);
-  const element = createFieldElement(field, cat, isEditable);
+  const element = createFieldElement(field, catData, isEditable);
   wrapper.appendChild(element);
   return wrapper;
 }
 
-// Получение котов по фильтрам:
-// async function getCats(filters = {}) {
-//   const params = new URLSearchParams({
-//     _sort: "-date",
-//     ...filters,
-//   });
-//   console.log(`sending ${PATH}/cats?${params.toString()}`);
-//   const response = await fetch(`${PATH}/cats?${params.toString()}`);
-//   const data = await response.json();
-//   return data;
-// }
-
-async function showRecent(targetList) {
+async function getRecent(listId) {
+  console.log(`will be shown recent in: ${listId}`);
   const recentlyAdded = await getCats({
-    status: targetList.id,
+    status: listId,
     _limit: RECENT_COUNT,
+    _sort: "-date",
   });
-  showData(recentlyAdded, targetList);
+  showData(recentlyAdded, listId);
 }
 
-function showData(data, container) {
+function showData(data, listId) {
+  const container = document.getElementById(listId);
+  console.log(`will be shown in container: ${container}`);
   container.innerHTML = "";
   data.forEach((e) => {
     const li = document.createElement("li");
     li.dataset.id = e.id;
     console.log(li.dataset.id);
-    // li.innerHTML = fillCard(li, e);
     loadCatFields({ showInPrevew: "true" }).then((fields) => {
       generateAddingForm(li, fields, e, false);
     });
@@ -207,29 +243,29 @@ function showData(data, container) {
   });
 }
 
-async function deleteCat(el) {
-  const isConfirmed = confirm("Удалить данные о котике?");
-
+async function deleteCat() {
+  const id = activeCardId;
+  const catObj = await getCatById(id);
+  console.log(`we will delete this cat: ${catObj}`);
+  console.log("Вот кот:", catObj);
+  const listCategory = catObj.status;
+  const isConfirmed = confirm(`Удалить данные о котике ${catObj.name}?`);
   if (isConfirmed) {
-    const listCategory = el.closest("ul").id;
-    if (listCategory === "lost" || listCategory === "found") {
-      const result = await fetch(`${PATH}/cats/${el.dataset.id}`, {
-        method: "DELETE",
-      });
-      alert("Данные удалены");
-      if (result.ok) {
-      } else {
-        console.error("Ошибка при удалении кота");
-      }
-      const recent = await getCats({ status: listCategory, _limit: 5 });
-      const list = document.getElementById(listCategory);
-      showData(recent, list);
-    }
+    deleteCatById();
+    details.classList.add("hidden");
+    getRecent(listCategory);
   }
 }
 
-function editCat(id) {
-  console.log(`edit ${id}`);
+async function editCat() {
+  const id = activeCardId;
+
+  const catObj = await getCatById(id);
+  console.log(`we will edit this cat: ${catObj}`);
+
+  loadCatFields().then((fields) => {
+    generateAddingForm(detailsText, fields, catObj, true);
+  });
 }
 
 function favoriteCat(id) {
@@ -248,42 +284,29 @@ function showPreview(select, preview) {
 
 // Показываем подробности о котике:
 async function showDetails(catId) {
-  const response = await fetch(`${PATH}/cats/?id=${catId}`);
-  const [cat] = await response.json(); // достаём первый объект из массива
+  activeCardId = catId;
 
-  const details = document.querySelector(".details");
-  const detailsText = details.querySelector(".details_text");
+  //Получим массив из одного кота:
+  const catData = await getCatById(catId);
+  console.log(`catData ${catData}`);
+
+  // const response = await fetch(`${PATH}/cats/?id=${catId}`);
+  // const [cat] = await response.json(); // достаём первый объект из массива
+
   detailsText.innerHTML = "";
   details.classList.remove("hidden");
 
   loadCatFields().then((fields) => {
-    generateAddingForm(detailsText, fields, cat, false);
+    generateAddingForm(detailsText, fields, catData, false);
   });
-
-  // Кнопка закрытия и другие
-
-  details.querySelector(".close").onclick = () => {
-    details.classList.add("hidden");
-  };
-  details
-    .querySelector(".delete")
-    .addEventListener("click", () => deleteCat(cat));
-  details
-    .querySelector(".edit")
-    .addEventListener("click", () => editCat(cat.id));
-  details
-    .querySelector(".favorite")
-    .addEventListener("click", () => favoriteCat(cat.id));
 }
 
 // Точка входа
 const addForm = document.getElementById("add");
 loadCatFields().then((fields) => {
-  generateAddingForm(addForm, fields, {}, true);
+  generateAddingForm(addForm, fields, "", true);
 });
 
-const lostList = document.getElementById("lost");
-showRecent(lostList);
-const foundList = document.getElementById("found");
-showRecent(foundList);
-// init();
+getRecent("lost");
+
+getRecent("found");
