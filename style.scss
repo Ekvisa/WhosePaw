@@ -26,30 +26,7 @@ li {
   padding: 2em;
   cursor: pointer;
   position: relative;
-  // .operations {
-  //   position: absolute;
-  //   top: 1em;
-  //   right: 1em;
-  //   button {
-  //     width: 2em;
-  //     height: 2em;
-  //     background-color: transparent;
-  //     border: none;
-  //     cursor: pointer;
-  //     &.favorite {
-  //       background-image: url("./images/heart.svg");
-  //     }
-  //     &.edit {
-  //       background-image: url("./images/edit.svg");
-  //     }
-  //     &.delete {
-  //       background-image: url("./images/erase.svg");
-  //     }
-  //     &:hover {
-  //       filter: brightness(0.5);
-  //     }
-  //   }
-  // }
+
   p {
     display: flex;
     gap: 1em;

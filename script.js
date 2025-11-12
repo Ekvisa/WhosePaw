@@ -43,17 +43,19 @@ async function getCats(params = {}) {
 // CREATE
 async function createCat(catData) {
   console.log(`createCat ${catData}`);
+  catData.created = new Date().toISOString();
   const response = await fetch(`${PATH}/cats`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(catData),
   });
+  const data = await response.json();
   alert(
     response.ok
       ? `Котик ${catData.name} добавлен! 🐾`
       : "Ошибка при добавлении котика"
   );
-  return await response.json();
+  return data;
 }
 
 // READ
@@ -65,7 +67,6 @@ async function getCatById(id) {
 
 // UPDATE
 async function updateCat(catData) {
-  // console.log(`updateCat ${catData.id}`);
   console.log("Тип catData:", typeof catData);
   console.log("Ключи catData:", Object.keys(catData));
   const response = await fetch(`${PATH}/cats/${catData.id}`, {
@@ -73,13 +74,13 @@ async function updateCat(catData) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(catData),
   });
-
+  const data = await response.json();
   alert(
     response.ok
       ? `Данные котика ${catData.name} обновлены! 🐾`
       : "Ошибка при обновлении котика"
   );
-  return await response.json();
+  return data;
 }
 
 // DELETE
@@ -87,6 +88,7 @@ async function deleteCatById() {
   const response = await fetch(`${PATH}/cats/${activeCardId}`, {
     method: "DELETE",
   });
+
   if (response.ok) {
     alert("Данные удалены");
   } else {
@@ -95,11 +97,11 @@ async function deleteCatById() {
   return true;
 }
 
-function generateAddingForm(formEl, fieldsData, catData, isEditable) {
-  formEl.innerHTML = "";
+function generateAddingForm(container, fieldsData, catData, isEditable) {
+  container.innerHTML = "";
   fieldsData.forEach((f) => {
     const fieldEl = createField(f, catData, isEditable);
-    formEl.appendChild(fieldEl);
+    container.appendChild(fieldEl);
   });
   if (isEditable) {
     const submitBtn = document.createElement("button");
@@ -109,9 +111,9 @@ function generateAddingForm(formEl, fieldsData, catData, isEditable) {
     } else {
       submitBtn.textContent = "Добавить";
     }
-    formEl.addEventListener("submit", async (event) => {
+    submitBtn.addEventListener("click", async (event) => {
       event.preventDefault();
-      const formData = new FormData(formEl);
+      const formData = new FormData(container);
       const newCatData = Object.fromEntries(formData.entries());
       const allCatData = { ...catData, ...newCatData };
       if (catData) {
@@ -119,11 +121,11 @@ function generateAddingForm(formEl, fieldsData, catData, isEditable) {
         await updateCat(allCatData);
       } else {
         await createCat(allCatData);
-        formEl.reset();
+        container.reset();
       }
-      getRecent(allCatData.status);
+      showRecent(allCatData.status);
     });
-    formEl.appendChild(submitBtn);
+    container.appendChild(submitBtn);
   }
 }
 
@@ -166,7 +168,6 @@ function createFieldElement(field, catData, isEditable) {
             const option = document.createElement("option");
             option.value = opt.value;
             option.textContent = opt.text;
-            // if (opt === opt.value) option.selected = true;
             if (opt.value === catData[field.attrName]) option.selected = true;
             element.appendChild(option);
           });
@@ -182,7 +183,7 @@ function createFieldElement(field, catData, isEditable) {
             radio.type = "radio";
             radio.name = field.attrName;
             radio.value = opt.value;
-            if (opt === opt.value) radio.checked = true;
+            if (opt.value === catData[field.attrName]) radio.checked = true;
             label.append(radio, document.createTextNode(opt.text));
             element.appendChild(label);
           });
@@ -215,30 +216,28 @@ function createField(field, catData, isEditable) {
   return wrapper;
 }
 
-async function getRecent(listId) {
+async function showRecent(listId) {
   console.log(`will be shown recent in: ${listId}`);
   const recentlyAdded = await getCats({
     status: listId,
+    _sort: "-created",
+    // _order: "asc",
     _limit: RECENT_COUNT,
-    _sort: "-date",
   });
   showData(recentlyAdded, listId);
 }
 
-function showData(data, listId) {
+async function showData(data, listId) {
   const container = document.getElementById(listId);
   console.log(`will be shown in container: ${container}`);
   container.innerHTML = "";
+  const fields = await loadCatFields({ showInPrevew: "true" });
   data.forEach((e) => {
     const li = document.createElement("li");
     li.dataset.id = e.id;
     console.log(li.dataset.id);
-    loadCatFields({ showInPrevew: "true" }).then((fields) => {
-      generateAddingForm(li, fields, e, false);
-    });
-
+    generateAddingForm(li, fields, e, false);
     li.addEventListener("click", () => showDetails(e.id));
-
     container.append(li);
   });
 }
@@ -249,11 +248,19 @@ async function deleteCat() {
   console.log(`we will delete this cat: ${catObj}`);
   console.log("Вот кот:", catObj);
   const listCategory = catObj.status;
+  console.log(`Удаляем данные о котике ${catObj.name}`);
+
+  // deleteCatById();
+  // details.classList.add("hidden");
+  // showRecent(listCategory);
+
   const isConfirmed = confirm(`Удалить данные о котике ${catObj.name}?`);
   if (isConfirmed) {
-    deleteCatById();
+    await deleteCatById();
     details.classList.add("hidden");
-    getRecent(listCategory);
+    showRecent(listCategory);
+    showRecent("lost");
+    showRecent("found");
   }
 }
 
@@ -290,9 +297,6 @@ async function showDetails(catId) {
   const catData = await getCatById(catId);
   console.log(`catData ${catData}`);
 
-  // const response = await fetch(`${PATH}/cats/?id=${catId}`);
-  // const [cat] = await response.json(); // достаём первый объект из массива
-
   detailsText.innerHTML = "";
   details.classList.remove("hidden");
 
@@ -307,6 +311,6 @@ loadCatFields().then((fields) => {
   generateAddingForm(addForm, fields, "", true);
 });
 
-getRecent("lost");
+showRecent("lost");
 
-getRecent("found");
+showRecent("found");
