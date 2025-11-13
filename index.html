@@ -45,8 +45,56 @@
         </ul>
       </section>
       <section>
-        <h3>Добавить котика:</h3>
+        <h2>Добавить котика:</h2>
         <form id="add"></form>
+      </section>
+      <!-- <section>
+        <h2>Найти котика:</h2>
+        <form id="filters">
+          <button type="button" id="search">Search</button>
+        </form>
+      </section> -->
+      <section id="filters">
+        <h2>Найти котика</h2>
+        <form id="filterForm">
+          <select name="status">
+            <option value="">Все</option>
+            <option value="lost">Потерялся</option>
+            <option value="found">Нашёлся</option>
+          </select>
+
+          <input type="text" name="name" placeholder="Имя кота" />
+
+          <select name="color">
+            <option value="">Любой цвет</option>
+            <option value="white">Белый</option>
+            <option value="gray">Серый</option>
+            <option value="ginger">Рыжий</option>
+            <option value="black">Чёрный</option>
+          </select>
+
+          <input type="text" name="area" placeholder="Район" />
+
+          <label
+            >с
+            <input type="date" name="dateFrom" />
+          </label>
+          <label
+            >по
+            <input type="date" name="dateTo" />
+          </label>
+
+          <select name="sort">
+            <option value="date_desc">Сначала новые</option>
+            <option value="date_asc">Сначала старые</option>
+            <option value="age_asc">Младшие сначала</option>
+            <option value="age_desc">Старшие сначала</option>
+          </select>
+
+          <button type="submit">Найти</button>
+          <button type="reset">Сбросить</button>
+        </form>
+        <ul id="filtered"></ul>
       </section>
       <section class="details hidden">
         <div class="details_content">

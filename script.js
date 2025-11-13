@@ -97,6 +97,24 @@ async function deleteCatById() {
   return true;
 }
 
+function showCatFields(container, data, fields, onSubmit) {
+  container.innerHTML = "";
+  fields.forEach((f) => {
+    const fieldItem = createField(f, data, onSubmit ? true : false);
+    container.appendChild(fieldItem);
+  });
+  if (onSubmit) {
+    const buttonNames = {
+      addCat: "Добавить",
+      editCat: "Сохранить",
+      filterCats: "Найти",
+    };
+    submitBtn.textContent = buttonNames[onSubmit] || onSubmit;
+    submitBtn.addEventListener("click", onSubmit(data));
+    container.appendChild(submitBtn);
+  }
+}
+
 function generateAddingForm(container, fieldsData, catData, isEditable) {
   container.innerHTML = "";
   fieldsData.forEach((f) => {
@@ -229,14 +247,15 @@ async function showRecent(listId) {
 
 async function showData(data, listId) {
   const container = document.getElementById(listId);
-  console.log(`will be shown in container: ${container}`);
+  console.log(`will be shown in container: ${container.id}`);
   container.innerHTML = "";
   const fields = await loadCatFields({ showInPrevew: "true" });
   data.forEach((e) => {
     const li = document.createElement("li");
     li.dataset.id = e.id;
     console.log(li.dataset.id);
-    generateAddingForm(li, fields, e, false);
+    // generateAddingForm(li, fields, e, false);
+    showCatFields(li, e, fields, "");
     li.addEventListener("click", () => showDetails(e.id));
     container.append(li);
   });
@@ -305,6 +324,57 @@ async function showDetails(catId) {
   });
 }
 
+// async function filterCats() {
+//   e.preventDefault();
+//   const formData = new FormData(e.target);
+//   const filters = Object.fromEntries(formData.entries());
+
+//   // Загружаем всех котов (или берём уже загруженные)
+//   const cats = await getCats();
+
+//   // Фильтрация
+//   let filtered = cats.filter((cat) => {
+//     if (filters.status && cat.status !== filters.status) return false;
+//     if (filters.color && cat.color !== filters.color) return false;
+//     if (
+//       filters.area &&
+//       !cat.area.toLowerCase().includes(filters.area.toLowerCase())
+//     )
+//       return false;
+//     if (
+//       filters.name &&
+//       !cat.name.toLowerCase().includes(filters.name.toLowerCase())
+//     )
+//       return false;
+
+//     if (filters.dateFrom && new Date(cat.date) < new Date(filters.dateFrom))
+//       return false;
+//     if (filters.dateTo && new Date(cat.date) > new Date(filters.dateTo))
+//       return false;
+
+//     return true;
+//   });
+
+//   // Сортировка
+//   switch (filters.sort) {
+//     case "date_desc":
+//       filtered.sort((a, b) => new Date(b.created) - new Date(a.created));
+//       break;
+//     case "date_asc":
+//       filtered.sort((a, b) => new Date(a.created) - new Date(b.created));
+//       break;
+//     case "age_asc":
+//       filtered.sort((a, b) => a.age - b.age);
+//       break;
+//     case "age_desc":
+//       filtered.sort((a, b) => b.age - a.age);
+//       break;
+//   }
+
+//   // Показываем отфильтрованных котиков
+//   showData(filtered, "filtered");
+// }
+
 // Точка входа
 const addForm = document.getElementById("add");
 loadCatFields().then((fields) => {
@@ -314,3 +384,6 @@ loadCatFields().then((fields) => {
 showRecent("lost");
 
 showRecent("found");
+
+// const searchButton = document.getElementById("search");
+// searchButton.addEventListener("click", () => console.log("search1"));
