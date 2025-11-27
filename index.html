@@ -14,102 +14,45 @@
     <main>
       <section>
         <h2>Недавно пропавшие котики</h2>
-        <ul id="lost">
-          <li>
-            <p><b>Возраст:</b> взрослый</p>
-            <p><b>Район:</b> Ленинский</p>
-            <div class="avatar">
-              =^<span class="eye">•</span>ᆺ<span class="eye">•</span>^=
-            </div>
-            <p><b>Контакт:</b> +79173337788, Лиза</p>
-          </li>
-          <li>
-            <p><b>Возраст:</b> взрослый</p>
-            <p><b>Район:</b> Ленинский</p>
-            <div class="avatar">
-              =^<span class="eye">•</span>ᆺ<span class="eye">•</span>^=
-            </div>
-            <p><b>Контакт:</b> +79173337788, Лиза</p>
-          </li>
-        </ul>
+        <ul id="lost"></ul>
+        <button id="seeAllLost">Смотреть всех</button>
       </section>
       <section>
-        <h2>Недавно найденные котики</h2>
-        <ul id="found">
-          <li>
-            <p><b>Возраст:</b> взрослый</p>
-            <p><b>Район:</b> Ленинский</p>
-            <div class="avatar">=^•ᆺ•^=</div>
-            <p><b>Контакт:</b> +79173337788, Лиза</p>
-          </li>
-        </ul>
+        <h2>Недавно обнаруженные котики</h2>
+        <ul id="found"></ul>
+        <button id="seeAllFound">Смотреть всех</button>
       </section>
       <section>
-        <h2>Добавить котика:</h2>
-        <form id="add"></form>
+        <h2>Добавить котика</h2>
+        <form id="add" enctype="multipart/form-data" method="POST"></form>
       </section>
-      <!-- <section>
-        <h2>Найти котика:</h2>
-        <form id="filters">
-          <button type="button" id="search">Search</button>
-        </form>
-      </section> -->
       <section id="filters">
-        <h2>Найти котика</h2>
-        <form id="filterForm">
-          <select name="status">
-            <option value="">Все</option>
-            <option value="lost">Потерялся</option>
-            <option value="found">Нашёлся</option>
-          </select>
-
-          <input type="text" name="name" placeholder="Имя кота" />
-
-          <select name="color">
-            <option value="">Любой цвет</option>
-            <option value="white">Белый</option>
-            <option value="gray">Серый</option>
-            <option value="ginger">Рыжий</option>
-            <option value="black">Чёрный</option>
-          </select>
-
-          <input type="text" name="area" placeholder="Район" />
-
-          <label
-            >с
-            <input type="date" name="dateFrom" />
-          </label>
-          <label
-            >по
-            <input type="date" name="dateTo" />
-          </label>
-
-          <select name="sort">
-            <option value="date_desc">Сначала новые</option>
-            <option value="date_asc">Сначала старые</option>
-            <option value="age_asc">Младшие сначала</option>
-            <option value="age_desc">Старшие сначала</option>
-          </select>
-
-          <button type="submit">Найти</button>
-          <button type="reset">Сбросить</button>
-        </form>
+        <h2>Найти котиков</h2>
+        <form
+          id="filterForm"
+          enctype="multipart/form-data"
+          method="POST"
+        ></form>
         <ul id="filtered"></ul>
+      </section>
+      <section>
+        <h2>Избранные котики</h2>
+        <ul id="favorites"></ul>
       </section>
       <section class="details hidden">
         <div class="details_content">
           <form class="details_text"></form>
           <div class="buttons">
-            <button class="favorite"></button>
-            <button class="edit"></button>
-            <button class="delete"></button>
+            <button class="favorite" title="Избранное"></button>
+            <button class="edit" title="Редактировать"></button>
+            <button class="delete" title="Удалить"></button>
           </div>
           <img src="./images/circle-xmark.svg" alt="close" class="close" />
         </div>
       </section>
     </main>
     <footer></footer>
-
+    <div id="toast"></div>
     <script src="script.js"></script>
   </body>
 </html>

@@ -1,4 +1,5 @@
 body {
+  font-family: Arial, sans-serif;
   background: #e8cba9;
   margin: 0;
 }
@@ -11,30 +12,39 @@ ul {
   display: flex;
   flex-wrap: wrap;
   align-items: start;
-  justify-content: center;
+  // justify-content: center;
   padding: 0;
+  align-items: stretch;
 }
 li {
   display: flex;
   flex-direction: column;
-  width: 20em;
-  margin: 2em;
-  justify-content: center;
+  gap: 1em;
+  // width: 15%;
+  margin: 1em;
+  justify-content: space-around;
   align-items: center;
   background: white;
   border-radius: 1em;
-  padding: 2em;
+  padding: 1em;
   cursor: pointer;
   position: relative;
 
   p {
-    display: flex;
-    gap: 1em;
+    width: 200px;
+    margin: 0;
+    max-height: 200px;
+    overflow: hidden;
     label {
-      color: gray;
+      display: none;
     }
-    span {
+    &:first-child {
       font-weight: bold;
+    }
+    img {
+      display: block;
+
+      width: 100%;
     }
   }
 }
@@ -67,7 +77,7 @@ li {
     background: white;
     padding: 2em;
     border-radius: 2em;
-    text-align: center;
+    // text-align: center;
     position: relative;
     max-height: 90%; // correct it
     overflow: scroll;
@@ -76,9 +86,10 @@ li {
       flex-direction: column;
       label {
         color: gray;
+        font-size: 0.85em;
       }
       span {
-        font-weight: bold;
+        // font-weight: bold;
       }
     }
     .close {
@@ -93,7 +104,7 @@ li {
       }
     }
     .buttons {
-      display: flex;
+      // display: flex;
       align-items: center;
       justify-content: center;
       gap: 1em;
@@ -113,9 +124,16 @@ li {
         &.delete {
           background-image: url("./images/erase.svg");
         }
-        &:hover {
-          filter: brightness(0.5);
-        }
+        // &:hover {
+        //   filter: invert(1);
+        // }
+      }
+      .active {
+        filter: invert(50%) sepia(100%) saturate(100%) hue-rotate(300deg)
+          contrast(200%);
+        // &:hover {
+        //   filter: none;
+        // }
       }
     }
   }
@@ -136,4 +154,29 @@ li {
 
 .hidden {
   display: none;
+}
+
+////toast popup below////
+
+#toast {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  padding: 1em;
+  border-radius: 1em;
+  opacity: 0;
+  transform: translateY(-1em);
+  transition: opacity 1s ease, transform 1s ease;
+  &.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  &.success {
+    background: #d9eedc;
+    color: #4f7a57;
+  }
+  &.error {
+    background: #f7dcdc;
+    color: #a45a5a;
+  }
 }
