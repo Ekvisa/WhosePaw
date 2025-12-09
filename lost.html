@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="./images/paw.svg" type="image/x-icon" />
+  </head>
+  <body>
+    <header>
+      <h1>🐾 <a href="index.html">Чьи лапки?</a> 🐾</h1>
+    </header>
+    <main>
+      <section>
+        <h2>Все пропавшие котики</h2>
+        <ul id="alllost"></ul>
+      </section>
+
+      <section class="details hidden">
+        <div class="details_content">
+          <form class="details_text"></form>
+          <div class="buttons">
+            <button class="favorite" title="Избранное"></button>
+            <button class="edit" title="Редактировать"></button>
+            <button class="delete" title="Удалить"></button>
+          </div>
+          <img src="./images/circle-xmark.svg" alt="close" class="close" />
+        </div>
+      </section>
+    </main>
+    <footer></footer>
+    <div id="toast"></div>
+    <script src="script.js"></script>
+  </body>
+</html>

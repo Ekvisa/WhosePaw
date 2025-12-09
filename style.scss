@@ -7,12 +7,13 @@ body {
 h1,
 h2 {
   text-align: center;
+  margin: 2em 0 1em;
+  color: #333;
 }
 ul {
   display: flex;
   flex-wrap: wrap;
-  align-items: start;
-  // justify-content: center;
+  justify-content: center;
   padding: 0;
   align-items: stretch;
 }
@@ -20,7 +21,7 @@ li {
   display: flex;
   flex-direction: column;
   gap: 1em;
-  // width: 15%;
+
   margin: 1em;
   justify-content: space-around;
   align-items: center;
@@ -77,7 +78,7 @@ li {
     background: white;
     padding: 2em;
     border-radius: 2em;
-    // text-align: center;
+
     position: relative;
     max-height: 90%; // correct it
     overflow: scroll;
@@ -87,9 +88,6 @@ li {
       label {
         color: gray;
         font-size: 0.85em;
-      }
-      span {
-        // font-weight: bold;
       }
     }
     .close {
@@ -124,16 +122,10 @@ li {
         &.delete {
           background-image: url("./images/erase.svg");
         }
-        // &:hover {
-        //   filter: invert(1);
-        // }
       }
       .active {
         filter: invert(50%) sepia(100%) saturate(100%) hue-rotate(300deg)
           contrast(200%);
-        // &:hover {
-        //   filter: none;
-        // }
       }
     }
   }
@@ -178,5 +170,44 @@ li {
   &.error {
     background: #f7dcdc;
     color: #a45a5a;
+  }
+}
+
+.searchform {
+  margin: 0 auto;
+  background: linen;
+  width: fit-content;
+  padding: 2em;
+  border-radius: 1em;
+  label {
+    margin-right: 1em;
+  }
+  p {
+    margin: 0 0 1.5em;
+  }
+  button {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background: transparent;
+    padding: 1em;
+    border-radius: 1em;
+    cursor: pointer;
+    font-size: 1em;
+    margin: 2em auto 0;
+    display: block;
+    color: #333;
+    &:hover {
+      background: rgba(0, 0, 0, 0.2);
+      border-color: transparent;
+    }
+  }
+}
+
+.seeAll {
+  margin: 0 auto;
+  display: block;
+  width: fit-content;
+  color: darkslategrey;
+  &:hover {
+    color: darkgoldenrod;
   }
 }

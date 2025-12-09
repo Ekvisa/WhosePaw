@@ -15,20 +15,26 @@
       <section>
         <h2>Недавно пропавшие котики</h2>
         <ul id="lost"></ul>
-        <button id="seeAllLost">Смотреть всех</button>
+        <button class="seeAll" id="seeAllLost">Смотреть всех</button>
       </section>
       <section>
         <h2>Недавно обнаруженные котики</h2>
         <ul id="found"></ul>
-        <button id="seeAllFound">Смотреть всех</button>
+        <button class="seeAll" id="seeAllFound">Смотреть всех</button>
       </section>
       <section>
         <h2>Добавить котика</h2>
-        <form id="add" enctype="multipart/form-data" method="POST"></form>
+        <form
+          class="searchform"
+          id="add"
+          enctype="multipart/form-data"
+          method="POST"
+        ></form>
       </section>
       <section id="filters">
         <h2>Найти котиков</h2>
         <form
+          class="searchform"
           id="filterForm"
           enctype="multipart/form-data"
           method="POST"

@@ -7,12 +7,14 @@ body {
 h1,
 h2 {
   text-align: center;
+  margin: 2em 0 1em;
+  color: #333;
 }
 
 ul {
   display: flex;
   flex-wrap: wrap;
-  align-items: start;
+  justify-content: center;
   padding: 0;
   align-items: stretch;
 }
@@ -153,6 +155,45 @@ li p img {
 #toast.error {
   background: #f7dcdc;
   color: #a45a5a;
+}
+
+.searchform {
+  margin: 0 auto;
+  background: linen;
+  width: fit-content;
+  padding: 2em;
+  border-radius: 1em;
+}
+.searchform label {
+  margin-right: 1em;
+}
+.searchform p {
+  margin: 0 0 1.5em;
+}
+.searchform button {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: transparent;
+  padding: 1em;
+  border-radius: 1em;
+  cursor: pointer;
+  font-size: 1em;
+  margin: 2em auto 0;
+  display: block;
+  color: #333;
+}
+.searchform button:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: transparent;
+}
+
+.seeAll {
+  margin: 0 auto;
+  display: block;
+  width: fit-content;
+  color: darkslategrey;
+}
+.seeAll:hover {
+  color: darkgoldenrod;
 }
 
 /*# sourceMappingURL=style.css.map */

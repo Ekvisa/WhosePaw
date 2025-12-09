@@ -43,12 +43,12 @@ async function getCats(params = {}) {
 
 // CREATE
 async function createCat(catData) {
-  console.log(catData);
+  // console.log(catData);
   catData.created = new Date().toISOString();
-  console.log(`addForm: ${addForm}`);
+  // console.log(`addForm: ${addForm}`);
 
   const fileInput = addForm.querySelector("#photo");
-  console.log(`fileInput: ${fileInput}`);
+  // console.log(`fileInput: ${fileInput}`);
   const file = fileInput.files[0];
   if (file instanceof File && file.size > 0) {
     catData.photo = await fileToBase64(file);
@@ -63,7 +63,7 @@ async function createCat(catData) {
   });
   const updatedList = document.getElementById(catData.status);
   const data = await response.json();
-  console.log(catData);
+  // console.log(catData);
   showRecent(catData.status).then(async () => {
     updatedList.scrollIntoView({ behavior: "smooth", block: "start" });
     showToast(
@@ -94,10 +94,7 @@ async function updateCat(catData) {
   if (file) {
     catData.photo = await fileToBase64(file);
     console.log(`catData: ${catData}`);
-  } else {
-    // catData.photo = "";
   }
-  // console.log(`catData: ${catData}`);
 
   const response = await fetch(`${PATH}/cats/${activeCardId}`, {
     method: "PATCH",
@@ -147,7 +144,7 @@ async function deleteCat() {
 }
 
 function showCatFields(container, data, fields, onSubmit) {
-  console.log("showCatFields");
+  // console.log("showCatFields");
   container.innerHTML = "";
   fields.forEach((f) => {
     const fieldItem = createField(f, data, onSubmit ? true : false);
@@ -164,14 +161,14 @@ function showCatFields(container, data, fields, onSubmit) {
     submitBtn.textContent = buttonNames[functionName];
     submitBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      console.log("click");
+      // console.log("click");
       const formData = new FormData(container);
-      console.log(`formData: ${formData}`);
+      // console.log(`formData: ${formData}`);
 
       const newData = Object.fromEntries(formData.entries()); // но файл не считывать, т.к. показывается пустой в форме
       const allData = { ...data, ...newData };
       allData.photo = data.photo; // возможно это костыль - разобрать (как НЕ читать пустое фото из fromEntries?)
-      console.log(`allData: ${JSON.stringify(allData)}`);
+      // console.log(`allData: ${JSON.stringify(allData)}`);
 
       onSubmit(allData); //
       // container.reset();
@@ -212,7 +209,7 @@ function createFieldElement(field, catData, isEditable) {
       if (field.enterType === "select") {
         const fieldOptions = field.options;
         const option = fieldOptions.filter((o) => o.value === fieldValue);
-        console.log(option[0].text);
+        // console.log(option[0].text);
         fieldValue = option[0].text;
       }
       element.textContent = fieldValue;
@@ -251,7 +248,7 @@ function createFieldElement(field, catData, isEditable) {
           elementPhoto.src = catData[field.attrName];
           element.append(elementPhoto);
         }
-        console.log(element);
+        // console.log(element);
         break;
 
       case "textarea":
@@ -303,7 +300,7 @@ function createFieldElement(field, catData, isEditable) {
 }
 
 function createField(field, catData, isEditable) {
-  console.log("createField");
+  // console.log("createField");
   const wrapper = document.createElement("p");
   const label = createFieldLabel(field);
   wrapper.appendChild(label);
@@ -313,7 +310,7 @@ function createField(field, catData, isEditable) {
 }
 
 async function showRecent(listId) {
-  console.log(`will be shown recent in: ${listId}`);
+  // console.log(`will be shown recent in: ${listId}`);
   const recentlyAdded = await getCats({
     status: listId,
     _sort: "-date",
@@ -325,14 +322,14 @@ async function showRecent(listId) {
 
 async function showData(data, listId) {
   const container = document.getElementById(listId);
-  console.log(`will be shown in container: ${container.id}`);
+  // console.log(`will be shown in container: ${container.id}`);
   container.innerHTML = "";
   const fields = await loadCatFields("preview");
-  console.log(`fields: ${JSON.stringify(fields)}`);
+  // console.log(`fields: ${JSON.stringify(fields)}`);
   data.forEach((e) => {
     const li = document.createElement("li");
     li.dataset.id = e.id;
-    console.log(li.dataset.id);
+    // console.log(li.dataset.id);
     showCatFields(li, e, fields, "");
     li.addEventListener("click", () => showDetails(e.id));
     container.append(li);
@@ -340,11 +337,11 @@ async function showData(data, listId) {
 }
 
 async function editCat() {
-  console.log("editCat");
+  // console.log("editCat");
   const id = activeCardId;
 
   const catObj = await getCatById(id);
-  console.log(`we will edit this cat: ${JSON.stringify(catObj)}`);
+  // console.log(`we will edit this cat: ${JSON.stringify(catObj)}`);
 
   loadCatFields().then((fields) => {
     showCatFields(detailsText, catObj, fields, updateCat);
@@ -414,13 +411,14 @@ async function showDetails(catId) {
 }
 
 async function filterCats(filters) {
-  console.log(`filters: ${filters}`);
-  console.log(filters);
+  // console.log(`filters: ${filters}`);
+  // console.log(filters);
   const cats = await getCats();
-  console.log(`cats: ${JSON.stringify(cats)}`);
+  // console.log(`cats: ${JSON.stringify(cats)}`);
 
   // Фильтрация
   let filtered = cats.filter((cat) => {
+    if (filters.id && cat.id !== filters.id) return false;
     if (filters.furcolor && cat.furcolor !== filters.furcolor) return false;
     if (filters.eyeColor && cat.eyeColor !== filters.eyeColor) return false;
     if (filters.status && cat.status !== filters.status) return false;
@@ -455,8 +453,6 @@ async function filterCats(filters) {
   }
 
   // Показываем отфильтрованных котиков
-  // showData(filtered, "filtered");
-
   showData(filtered, "filtered").then(async () => {
     document
       .getElementById("filtered")
@@ -476,8 +472,6 @@ loadCatFields("filter").then((fields) => {
 showRecent("lost");
 showRecent("found");
 showFavoriteCats();
-
-// showToast("Данные котика обновлены! 🐾");
 
 function showToast(message, type = "success") {
   toast = document.getElementById("toast");
@@ -502,9 +496,9 @@ function fileToBase64(file) {
 async function showFavoriteCats() {
   const favIds = getFavorites();
   const allCats = await getCats();
-  console.log("allCats:", allCats);
+  // console.log("allCats:", allCats);
   const favCats = allCats.filter((cat) => favIds.includes(cat.id));
-  console.log("favCats:", favCats);
+  // console.log("favCats:", favCats);
   showData(favCats, "favorites");
 }
 
@@ -536,6 +530,54 @@ function toggleFavorite(id) {
 }
 
 function isFavorite(catId) {
-  console.log(`getFavorites(): ${getFavorites()}`);
+  // console.log(`getFavorites(): ${getFavorites()}`);
   return getFavorites().includes(catId);
+}
+
+//  "show all" //
+
+let isAllShown = false;
+
+const allLostBtn = document.getElementById("seeAllLost");
+allLostBtn.addEventListener("click", (e) => showAll(e.target));
+
+const allFoundBtn = document.getElementById("seeAllFound");
+allFoundBtn.addEventListener("click", (e) => showAll(e.target));
+
+// const allLostList = document.getElementById("alllost");
+// const allFoundList = document.getElementById("allfound");
+
+// const allLostCats = filterByStatus("lost");
+// const allFoundCats = filterByStatus("found");
+
+// showData(allLostCats, "lost");
+// showData(allFoundCats, "found");
+
+// async function filterByStatus(s) {
+//   const allCats = await getCats();
+//   const flteredCats = allCats.filter((cat) => cat.status === s);
+//   return flteredCats;
+// }
+
+async function showFilteredByStatus(listId) {
+  {
+    const filteredByStatus = await getCats({
+      status: listId,
+    });
+    showData(filteredByStatus, listId);
+  }
+}
+
+async function showAll(btn) {
+  let status = btn === allLostBtn ? "lost" : btn === allFoundBtn ? "found" : "";
+
+  if (isAllShown === false) {
+    await showFilteredByStatus(status);
+    isAllShown = true;
+    btn.textContent = "Недавно добавленные";
+  } else {
+    await showRecent(status);
+    isAllShown = false;
+    btn.textContent = "Смотреть всех";
+  }
 }
