@@ -6,11 +6,17 @@ const heartButton = document.querySelector(".buttons .favorite");
 let activeCardId = "";
 
 const details = document.querySelector(".details");
+details.addEventListener("click", (e) => {
+  if (e.target === details && !details.classList.contains("hidden")) {
+    console.log(e.target);
+    hideDetails();
+  }
+});
 const buttons = details.querySelector(".buttons");
 // Кнопка закрытия и другие
-details.querySelector(".close").onclick = () => {
-  details.classList.add("hidden");
-};
+details.querySelector(".close").addEventListener("click", () => {
+  hideDetails();
+});
 details.querySelector(".delete").addEventListener("click", () => {
   deleteCat();
 });
@@ -43,12 +49,9 @@ async function getCats(params = {}) {
 
 // CREATE
 async function createCat(catData) {
-  // console.log(catData);
   catData.created = new Date().toISOString();
-  // console.log(`addForm: ${addForm}`);
 
   const fileInput = addForm.querySelector("#photo");
-  // console.log(`fileInput: ${fileInput}`);
   const file = fileInput.files[0];
   if (file instanceof File && file.size > 0) {
     catData.photo = await fileToBase64(file);
@@ -63,7 +66,6 @@ async function createCat(catData) {
   });
   const updatedList = document.getElementById(catData.status);
   const data = await response.json();
-  // console.log(catData);
   showRecent(catData.status).then(async () => {
     updatedList.scrollIntoView({ behavior: "smooth", block: "start" });
     showToast(
@@ -144,7 +146,6 @@ async function deleteCat() {
 }
 
 function showCatFields(container, data, fields, onSubmit) {
-  // console.log("showCatFields");
   container.innerHTML = "";
   fields.forEach((f) => {
     const fieldItem = createField(f, data, onSubmit ? true : false);
@@ -161,14 +162,11 @@ function showCatFields(container, data, fields, onSubmit) {
     submitBtn.textContent = buttonNames[functionName];
     submitBtn.addEventListener("click", (e) => {
       e.preventDefault();
-      // console.log("click");
       const formData = new FormData(container);
-      // console.log(`formData: ${formData}`);
 
       const newData = Object.fromEntries(formData.entries()); // но файл не считывать, т.к. показывается пустой в форме
       const allData = { ...data, ...newData };
       allData.photo = data.photo; // возможно это костыль - разобрать (как НЕ читать пустое фото из fromEntries?)
-      // console.log(`allData: ${JSON.stringify(allData)}`);
 
       onSubmit(allData); //
       // container.reset();
@@ -209,11 +207,9 @@ function createFieldElement(field, catData, isEditable) {
       if (field.enterType === "select") {
         const fieldOptions = field.options;
         const option = fieldOptions.filter((o) => o.value === fieldValue);
-        // console.log(option[0].text);
         fieldValue = option[0].text;
       }
       element.textContent = fieldValue;
-      // element.textContent = catData[field.attrName] || "—";
     }
   } else {
     // Поле в режиме редактирования / добавления:
@@ -248,7 +244,6 @@ function createFieldElement(field, catData, isEditable) {
           elementPhoto.src = catData[field.attrName];
           element.append(elementPhoto);
         }
-        // console.log(element);
         break;
 
       case "textarea":
@@ -300,7 +295,6 @@ function createFieldElement(field, catData, isEditable) {
 }
 
 function createField(field, catData, isEditable) {
-  // console.log("createField");
   const wrapper = document.createElement("p");
   const label = createFieldLabel(field);
   wrapper.appendChild(label);
@@ -310,7 +304,6 @@ function createField(field, catData, isEditable) {
 }
 
 async function showRecent(listId) {
-  // console.log(`will be shown recent in: ${listId}`);
   const recentlyAdded = await getCats({
     status: listId,
     _sort: "-date",
@@ -322,14 +315,11 @@ async function showRecent(listId) {
 
 async function showData(data, listId) {
   const container = document.getElementById(listId);
-  // console.log(`will be shown in container: ${container.id}`);
   container.innerHTML = "";
   const fields = await loadCatFields("preview");
-  // console.log(`fields: ${JSON.stringify(fields)}`);
   data.forEach((e) => {
     const li = document.createElement("li");
     li.dataset.id = e.id;
-    // console.log(li.dataset.id);
     showCatFields(li, e, fields, "");
     li.addEventListener("click", () => showDetails(e.id));
     container.append(li);
@@ -337,11 +327,9 @@ async function showData(data, listId) {
 }
 
 async function editCat() {
-  // console.log("editCat");
   const id = activeCardId;
 
   const catObj = await getCatById(id);
-  // console.log(`we will edit this cat: ${JSON.stringify(catObj)}`);
 
   loadCatFields().then((fields) => {
     showCatFields(detailsText, catObj, fields, updateCat);
@@ -380,27 +368,17 @@ function toggleHeart(state) {
   }
 }
 
-// Показывает аватарку и глаза из символов при заполнении формы, наверно это не нужно, но очень уж мило:
-function showPreview(select, preview) {
-  select.addEventListener("change", () => {
-    preview.style.backgroundColor = select.value;
-    if (select.value === "black") {
-      preview.style.color = "white";
-    }
-  });
-}
-
 // Показываем подробности о котике:
 async function showDetails(catId) {
-  console.log("showDetails");
   activeCardId = catId;
-
   //Получим массив из одного кота:
   const catData = await getCatById(catId);
   console.log(`catData ${catData}`);
 
   detailsText.innerHTML = "";
   details.classList.remove("hidden");
+
+  document.getElementsByTagName("body")[0].classList.add("fixed");
 
   loadCatFields().then((fields) => {
     showCatFields(detailsText, catData, fields, "");
@@ -410,13 +388,15 @@ async function showDetails(catId) {
   toggleHeart(isFavorite(activeCardId));
 }
 
-async function filterCats(filters) {
-  // console.log(`filters: ${filters}`);
-  // console.log(filters);
-  const cats = await getCats();
-  // console.log(`cats: ${JSON.stringify(cats)}`);
+function hideDetails() {
+  details.classList.add("hidden");
+  document.getElementsByTagName("body")[0].classList.remove("fixed");
+}
 
-  // Фильтрация
+async function filterCats(filters) {
+  const cats = await getCats();
+
+  // Фильтрация:
   let filtered = cats.filter((cat) => {
     if (filters.id && cat.id !== filters.id) return false;
     if (filters.furcolor && cat.furcolor !== filters.furcolor) return false;
@@ -429,14 +409,10 @@ async function filterCats(filters) {
       !cat.name.toLowerCase().includes(filters.name.toLowerCase())
     )
       return false;
-    // if (filters.dateFrom && new Date(cat.date) < new Date(filters.dateFrom))
-    //   return false;
-    // if (filters.dateTo && new Date(cat.date) > new Date(filters.dateTo))
-    //   return false;
     return true;
   });
 
-  // Сортировка
+  // Сортировка:
   switch (filters.sort) {
     case "date_desc":
       filtered.sort((a, b) => new Date(b.created) - new Date(a.created));
@@ -452,7 +428,7 @@ async function filterCats(filters) {
       break;
   }
 
-  // Показываем отфильтрованных котиков
+  // Показываем отфильтрованных котиков:
   showData(filtered, "filtered").then(async () => {
     document
       .getElementById("filtered")
@@ -460,7 +436,8 @@ async function filterCats(filters) {
   });
 }
 
-//// Точка входа ////
+// --- Точка входа ---
+
 const addForm = document.getElementById("add");
 const filterForm = document.getElementById("filterForm");
 loadCatFields("add").then((fields) => {
@@ -487,18 +464,16 @@ function fileToBase64(file) {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
-    reader.readAsDataURL(file); // <<< делает base64
+    reader.readAsDataURL(file);
   });
 }
 
-// Favorites //
+// ---- Favorites ---
 
 async function showFavoriteCats() {
   const favIds = getFavorites();
   const allCats = await getCats();
-  // console.log("allCats:", allCats);
   const favCats = allCats.filter((cat) => favIds.includes(cat.id));
-  // console.log("favCats:", favCats);
   showData(favCats, "favorites");
 }
 
@@ -530,34 +505,23 @@ function toggleFavorite(id) {
 }
 
 function isFavorite(catId) {
-  // console.log(`getFavorites(): ${getFavorites()}`);
   return getFavorites().includes(catId);
 }
 
-//  "show all" //
+// --- "show all" ---
 
-let isAllShown = false;
+const showState = {
+  lost: false,
+  found: false,
+};
 
-const allLostBtn = document.getElementById("seeAllLost");
-allLostBtn.addEventListener("click", (e) => showAll(e.target));
+document
+  .getElementById("seeAllLost")
+  .addEventListener("click", () => toggleList("lost"));
 
-const allFoundBtn = document.getElementById("seeAllFound");
-allFoundBtn.addEventListener("click", (e) => showAll(e.target));
-
-// const allLostList = document.getElementById("alllost");
-// const allFoundList = document.getElementById("allfound");
-
-// const allLostCats = filterByStatus("lost");
-// const allFoundCats = filterByStatus("found");
-
-// showData(allLostCats, "lost");
-// showData(allFoundCats, "found");
-
-// async function filterByStatus(s) {
-//   const allCats = await getCats();
-//   const flteredCats = allCats.filter((cat) => cat.status === s);
-//   return flteredCats;
-// }
+document
+  .getElementById("seeAllFound")
+  .addEventListener("click", () => toggleList("found"));
 
 async function showFilteredByStatus(listId) {
   {
@@ -568,16 +532,33 @@ async function showFilteredByStatus(listId) {
   }
 }
 
-async function showAll(btn) {
-  let status = btn === allLostBtn ? "lost" : btn === allFoundBtn ? "found" : "";
+async function toggleList(status) {
+  const statusName = status.charAt(0).toUpperCase() + status.slice(1);
+  const btn = document.getElementById(`seeAll${statusName}`);
+  const title = document.getElementById(`title${statusName}`);
 
-  if (isAllShown === false) {
+  const isShown = showState[status];
+
+  if (!isShown) {
     await showFilteredByStatus(status);
-    isAllShown = true;
-    btn.textContent = "Недавно добавленные";
+    showState[status] = true;
+    btn.textContent = "Недавние";
+
+    if (title) {
+      title.textContent =
+        status === "lost" ? "Все пропавшие котики" : "Все обнаруженные котики";
+    }
   } else {
     await showRecent(status);
-    isAllShown = false;
-    btn.textContent = "Смотреть всех";
+    showState[status] = false;
+    btn.textContent = "Все";
+
+    if (title) {
+      title.textContent =
+        status === "lost"
+          ? "Недавно пропавшие котики"
+          : "Недавно обнаруженные котики";
+    }
   }
+  title.scrollIntoView({ behavior: "smooth", block: "start" });
 }

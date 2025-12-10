@@ -134,6 +134,10 @@ li p img {
   display: none;
 }
 
+.fixed {
+  position: fixed;
+}
+
 #toast {
   position: fixed;
   top: 1em;
