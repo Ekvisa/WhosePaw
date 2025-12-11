@@ -1,4 +1,4 @@
-const PATH = "http://localhost:5000";
+const PATH = "https://whosepaw.onrender.com"; //http://localhost:5000
 const RECENT_COUNT = 5;
 
 const heartButton = document.querySelector(".buttons .favorite");
