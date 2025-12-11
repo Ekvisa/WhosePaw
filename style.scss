@@ -76,25 +76,36 @@ li {
   justify-content: center;
   &_content {
     background: white;
-    padding: 2em;
-    border-radius: 2em;
-
+    padding: 1em;
+    border-radius: 1em;
     position: relative;
     max-height: 90%; // correct it
+    width: 400px;
     overflow: scroll;
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      margin: 1em;
+    }
     p {
       display: flex;
       flex-direction: column;
+      margin: 0;
       label {
         color: gray;
         font-size: 0.85em;
       }
     }
     .close {
-      position: absolute;
+      position: sticky;
+      top: 0;
+      display: block;
+      margin-left: auto;
+      margin-bottom: -2em;
       cursor: pointer;
-      top: 1em;
-      right: 1em;
+      // top: 1em;
+      // right: 1em;
       width: 2em;
       height: 2em;
       &:hover {
@@ -104,8 +115,7 @@ li {
     .buttons {
       // display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 1em;
+      justify-content: space-evenly;
       button {
         width: 2em;
         height: 2em;
