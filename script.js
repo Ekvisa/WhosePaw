@@ -365,8 +365,8 @@ function createField(field, catData, isEditable) {
 async function showRecent(listId) {
   const recentlyAdded = await getCats({
     status: listId,
-    _sort: "-date",
-    // _order: "desc",
+    _sort: "date",
+    _order: "desc",
     _limit: RECENT_COUNT,
   });
   showData(recentlyAdded, listId);
