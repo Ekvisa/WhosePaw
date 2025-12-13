@@ -4,6 +4,20 @@ body {
   margin: 0;
 }
 
+#loader {
+  padding: 3em;
+  background: white;
+  text-align: center;
+}
+#loader p {
+  text-align: center;
+  margin: 0 0 2em;
+}
+#loader #catface {
+  font-size: 3em;
+  cursor: grab;
+}
+
 h1,
 h2 {
   text-align: center;

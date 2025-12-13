@@ -2,6 +2,63 @@
 const PATH = "https://whosepaw.onrender.com";
 const RECENT_COUNT = 5;
 
+const catFaces = [
+  "≽^-⩊-^≼",
+  "(•˕ •マ.ᐟ",
+  "₍^. .^₎⟆",
+  "ᓚ₍ ^. .^₎",
+  "₍⸍⸌̣ʷ̣̫⸍̣⸌₎",
+  "(^..^)ﾉ",
+  "ᓚᘏᗢ",
+  "₍^.  ̫.^₎",
+  "/ᐠ. .ᐟ Ⳋ",
+  "/ᐠ - ˕ •マ",
+  "ฅ^._.^ฅ",
+  "₍^. .^₎",
+  ">^•-•^<",
+  "(≖⩊≖)",
+  "≽^• ˕ •^≼",
+  "≽^-˕-^≼",
+  "🐱",
+  "=ᗢ=",
+  "😼",
+  "𓃠",
+  "₍^. ̫.^₎",
+  "(=^ ◡ ^=)",
+  "- ˕ •マ",
+  ">^._.^<",
+];
+
+function getRandomRGBColor() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+  return `rgb(${r},${g},${b})`;
+}
+
+const catFace = document.getElementById("catface");
+randomcatFace();
+function randomcatFace() {
+  catFace.textContent = catFaces[Math.floor(Math.random() * catFaces.length)];
+  catFace.style.color = getRandomRGBColor();
+}
+catFace.addEventListener("click", randomcatFace);
+
+let isServerAwake = false;
+
+async function wakeUpServer() {
+  if (isServerAwake) return;
+  const loader = document.getElementById("loader");
+  try {
+    await fetch(`${PATH}/cats?_limit=1`);
+    isServerAwake = true;
+  } catch (e) {
+    console.error("Сервер недоступен", e);
+  } finally {
+    loader.classList.add("hidden");
+  }
+}
+
 const heartButton = document.querySelector(".buttons .favorite");
 
 let activeCardId = "";
@@ -106,6 +163,7 @@ async function updateCat(catData) {
   });
 
   details.classList.add("hidden");
+  hideDetails(); // или showDetails(id) - т.е. чтобы окошко с отредактированными данными осталось открытым.
   const data = await response.json();
   showRecent(catData.status).then(async () => {
     showToast(
@@ -437,19 +495,24 @@ async function filterCats(filters) {
   });
 }
 
-// --- Точка входа ---
+async function initApp() {
+  await wakeUpServer();
 
-const addForm = document.getElementById("add");
-const filterForm = document.getElementById("filterForm");
-loadCatFields("add").then((fields) => {
-  showCatFields(addForm, "", fields, createCat);
-});
-loadCatFields("filter").then((fields) => {
-  showCatFields(filterForm, "", fields, filterCats);
-});
-showRecent("lost");
-showRecent("found");
-showFavoriteCats();
+  const addForm = document.getElementById("add");
+  const filterForm = document.getElementById("filterForm");
+  loadCatFields("add").then((fields) => {
+    showCatFields(addForm, "", fields, createCat);
+  });
+  loadCatFields("filter").then((fields) => {
+    showCatFields(filterForm, "", fields, filterCats);
+  });
+  showRecent("lost");
+  showRecent("found");
+  showFavoriteCats();
+}
+
+// --- Точка входа ---
+initApp();
 
 function showToast(message, type = "success") {
   toast = document.getElementById("toast");
