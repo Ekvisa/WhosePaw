@@ -12,6 +12,32 @@ body {
 #loader p {
   text-align: center;
   margin: 0 0 2em;
+  position: relative;
+}
+#loader p #wtf {
+  display: inline-block;
+  width: 1.25em;
+  height: 1.25em;
+  background: #bebebe;
+  color: white;
+  border-radius: 1.25em;
+  line-height: 1.25em;
+  font-weight: bold;
+  margin: 0.25em;
+  cursor: pointer;
+}
+#loader p #explanation {
+  position: absolute;
+  background: #bebebe;
+  border-radius: 1em;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 1em;
+  min-width: 200px;
+  max-width: 600px;
+  font-size: 0.9em;
 }
 #loader #catface {
   font-size: 3em;

@@ -2,6 +2,17 @@
 const PATH = "https://whosepaw.onrender.com";
 const RECENT_COUNT = 5;
 
+const wtf = document.getElementById("wtf");
+const explanation = document.getElementById("explanation");
+wtf.addEventListener("click", toggleExplanaton);
+function toggleExplanaton() {
+  if (explanation.classList.contains("hidden")) {
+    explanation.classList.remove("hidden");
+  } else {
+    explanation.classList.add("hidden");
+  }
+}
+
 const catFaces = [
   "≽^-⩊-^≼",
   "(•˕ •マ.ᐟ",

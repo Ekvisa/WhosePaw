@@ -11,6 +11,33 @@ body {
   p {
     text-align: center;
     margin: 0 0 2em;
+    position: relative;
+    #wtf {
+      $size: 1.25em;
+      display: inline-block;
+      width: $size;
+      height: $size;
+      background: #bebebe;
+      color: white;
+      border-radius: $size;
+      line-height: $size;
+      font-weight: bold;
+      margin: 0.25em;
+      cursor: pointer;
+    }
+    #explanation {
+      position: absolute;
+      background: #bebebe;
+      border-radius: 1em;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      padding: 1em;
+      min-width: 200px;
+      max-width: 600px;
+      font-size: 0.9em;
+    }
   }
   #catface {
     font-size: 3em;
