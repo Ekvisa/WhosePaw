@@ -122,7 +122,7 @@ li {
     position: relative;
     max-height: 90%; // correct it
     width: 400px;
-    overflow: scroll;
+    overflow-y: scroll;
     form {
       display: flex;
       flex-direction: column;
@@ -199,7 +199,8 @@ li {
   display: none;
 }
 .fixed {
-  position: fixed;
+  // position: fixed;
+  overflow: hidden;
 }
 
 ////toast popup below////

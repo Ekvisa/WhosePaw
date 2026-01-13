@@ -118,7 +118,7 @@ li p img {
   position: relative;
   max-height: 90%;
   width: 400px;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .details_content form {
   display: flex;
@@ -184,7 +184,7 @@ li p img {
 }
 
 .fixed {
-  position: fixed;
+  overflow: hidden;
 }
 
 #toast {
